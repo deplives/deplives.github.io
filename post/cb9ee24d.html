@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.ico">
+  <link rel="mask-icon" href="/images/avatar.ico" color="#222">
+  <meta name="google-site-verification" content="KlhFULTgWLtTYSK7L9zpf_9Jk9NheqwMfav7xgE7MZQ">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zebedy.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="这篇指南面向的是对 GPG 有了一定基础的朋友，如果你还不知道 GPG 是什么，那么可能需要先补充一下这部分的基础知识，再来食用该指南。如果你已经大概了解 GPG 的一些内容，知道它能用来干什么而且你真的需要用到。那么这篇指南或许对你有一点的帮助。这篇指南主要针对于 macOS 系统下的 GPG 使用方法，如果你使用的是 Windows 或者 Linux，其中有些内容可能并不适用。文中使用的 GP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS GPG 使用指南">
+<meta property="og:url" content="https://blog.zebedy.com/post/cb9ee24d.html">
+<meta property="og:site_name" content="Undefined">
+<meta property="og:description" content="这篇指南面向的是对 GPG 有了一定基础的朋友，如果你还不知道 GPG 是什么，那么可能需要先补充一下这部分的基础知识，再来食用该指南。如果你已经大概了解 GPG 的一些内容，知道它能用来干什么而且你真的需要用到。那么这篇指南或许对你有一点的帮助。这篇指南主要针对于 macOS 系统下的 GPG 使用方法，如果你使用的是 Windows 或者 Linux，其中有些内容可能并不适用。文中使用的 GP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-09T06:34:43.000Z">
+<meta property="article:modified_time" content="2023-07-11T14:30:40.000Z">
+<meta property="article:author" content="Zebedy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.zebedy.com/post/cb9ee24d.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.zebedy.com/post/cb9ee24d.html","path":"post/cb9ee24d.html","title":"macOS GPG 使用指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>macOS GPG 使用指南 | Undefined</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Undefined</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Life is but a span</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%B8%BB%E5%AF%86%E9%92%A5"><span class="nav-text">生成主密钥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AD%90%E5%AF%86%E9%92%A5"><span class="nav-text">配置子密钥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E4%BA%8E-SSH-%E9%89%B4%E6%9D%83%E7%9A%84%E5%AD%90%E5%AF%86%E9%92%A5"><span class="nav-text">创建用于 SSH 鉴权的子密钥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E5%AF%86%E9%92%A5"><span class="nav-text">创建子密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-SSH"><span class="nav-text">配置 SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E7%94%A8-GPG-Agent-%E7%9A%84-SSH-%E6%94%AF%E6%8C%81"><span class="nav-text">启用 GPG Agent 的 SSH 支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-GPG-Agent-%E6%9B%BF%E4%BB%A3-SSH-Agent"><span class="nav-text">设置 GPG Agent 替代 SSH Agent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%90%E5%AF%86%E9%92%A5-keygrip"><span class="nav-text">添加子密钥 keygrip</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E4%BA%8E-%E4%BB%A3%E7%A0%81%E7%AD%BE%E5%90%8D-%E7%9A%84%E5%AD%90%E5%AF%86%E9%92%A5"><span class="nav-text">创建用于 代码签名 的子密钥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E5%AF%86%E9%92%A5-1"><span class="nav-text">创建子密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%AD%90%E5%AF%86%E9%92%A5%E5%85%AC%E9%92%A5"><span class="nav-text">查询子密钥公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Git"><span class="nav-text">配置 Git</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zebedy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+
+      <div class="twopeople">
+        <div class="container" style="height:200px;">
+          <canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople1.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/zdog.dist.js"></script>
+        <script id="rendered-js" src="https://cdn.jsdelivr.net/gh/Justlovesmile/CDN/js/twopeople.js"></script>
+        <style>
+          .twopeople{
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+          }
+          canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: move;
+         }
+        </style>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.zebedy.com/post/cb9ee24d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zebedy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Undefined">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          macOS GPG 使用指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-09 14:34:43" itemprop="dateCreated datePublished" datetime="2023-05-09T14:34:43+08:00">2023-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-11 22:30:40" itemprop="dateModified" datetime="2023-07-11T22:30:40+08:00">2023-07-11</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这篇指南面向的是对 <code>GPG</code> 有了一定基础的朋友，如果你还不知道 <code>GPG</code> 是什么，那么可能需要先补充一下这部分的基础知识，再来食用该指南。<br>如果你已经大概了解 <code>GPG</code> 的一些内容，知道它能用来干什么而且你真的需要用到。那么这篇指南或许对你有一点的帮助。<br>这篇指南主要针对于 <code>macOS</code> 系统下的 <code>GPG</code> 使用方法，如果你使用的是 <code>Windows</code> 或者 <code>Linux</code>，其中有些内容可能并不适用。<br>文中使用的 <code>GPG</code> 版本是 <code>2.4.1</code> 版本信息如下</p>
+<span id="more"></span>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gpg (GnuPG) 2.4.1</span><br><span class="line">libgcrypt 1.10.2</span><br><span class="line">Copyright (C) 2023 g10 Code GmbH</span><br><span class="line">License GNU GPL-3.0-or-later &lt;https://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">Home: /Users/zebedy/.gnupg</span><br><span class="line">支持的算法：</span><br><span class="line">公钥： RSA, ELG, DSA, ECDH, ECDSA, EDDSA</span><br><span class="line">密文： IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,</span><br><span class="line">    CAMELLIA128, CAMELLIA192, CAMELLIA256</span><br><span class="line">散列： SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224</span><br><span class="line">压缩：  不压缩, ZIP, ZLIB, BZIP2</span><br></pre></td></tr></table></figure>
+
+<h1 id="生成主密钥"><a href="#生成主密钥" class="headerlink" title="生成主密钥"></a>生成主密钥</h1><p>在一般的情况下，我们使用 <code>--gen-key</code> 来生成一个密钥对，但是这个是一个简便方法。<br>这里我们需要更多的细节设置，所以用 <code>--full-gen-key</code> 来代替。选择密钥类型使用默认 <code>ECC（签名和加密）</code> 即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --full-gen-key</span></span><br><span class="line">gpg (GnuPG) 2.4.1; Copyright (C) 2023 g10 Code GmbH</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">请选择您要使用的密钥类型：</span><br><span class="line">   (1) RSA 和 RSA</span><br><span class="line">   (2) DSA 和 Elgamal</span><br><span class="line">   (3) DSA（仅用于签名）</span><br><span class="line">   (4) RSA（仅用于签名）</span><br><span class="line">   (9) ECC（签名和加密） *默认*</span><br><span class="line">  (10) ECC（仅用于签名）</span><br><span class="line"> （14）卡中现有密钥</span><br><span class="line">您的选择是？ 9</span><br></pre></td></tr></table></figure>
+
+<p>然后选择椭圆曲线，这里选择默认 <code>Curve 25519</code> 即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">请选择您想要使用的椭圆曲线：</span><br><span class="line">   (1) Curve 25519 *默认*</span><br><span class="line">   (4) NIST P-384</span><br><span class="line">   (6) Brainpool P-256</span><br><span class="line">您的选择是？ 1</span><br></pre></td></tr></table></figure>
+
+<p>然后设置有限期限，因为是个人使用的主密钥，所以无限期较为方便。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">请设定这个密钥的有效期限。</span><br><span class="line">         0 = 密钥永不过期</span><br><span class="line">      &lt;n&gt;  = 密钥在 n 天后过期</span><br><span class="line">      &lt;n&gt;w = 密钥在 n 周后过期</span><br><span class="line">      &lt;n&gt;m = 密钥在 n 月后过期</span><br><span class="line">      &lt;n&gt;y = 密钥在 n 年后过期</span><br><span class="line">密钥的有效期限是？(0) 0</span><br></pre></td></tr></table></figure>
+
+<p>然后根据提示确定以上内容后就开始输入个人信息了<br>其中电子邮件地址建议填写自己常用的真实的电子邮件，即使填写一个假的是没有问题的（比如例子里面）<br>然后输入 <code>O</code> 确定内容或者根据提示输入特定返回修改。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GnuPG 需要构建用户标识以辨认您的密钥。</span><br><span class="line"></span><br><span class="line">真实姓名： zebedy</span><br><span class="line">电子邮件地址： example@gmail.com</span><br><span class="line">注释： 主密钥</span><br><span class="line">您正在使用‘utf-8’字符集。</span><br><span class="line">您选定了此用户标识：</span><br><span class="line">    “zebedy (主密钥) &lt;example@gmail.com&gt;”</span><br><span class="line"></span><br><span class="line">更改姓名（N）、注释（C）、电子邮件地址（E）或确定（O）/退出（Q）？ O</span><br></pre></td></tr></table></figure>
+
+<p>确定之后根据提示设置主密钥的密码，经过短暂的时间就可以生成一个密钥了。<br>这个密码一定要妥善保管，会经常需要使用。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">我们需要生成大量的随机字节。在质数生成期间做些其他操作（敲打键盘</span><br><span class="line">、移动鼠标、读写硬盘之类的）将会是一个不错的主意；这会让随机数</span><br><span class="line">发生器有更好的机会获得足够的熵。</span><br><span class="line">我们需要生成大量的随机字节。在质数生成期间做些其他操作（敲打键盘</span><br><span class="line">、移动鼠标、读写硬盘之类的）将会是一个不错的主意；这会让随机数</span><br><span class="line">发生器有更好的机会获得足够的熵。</span><br><span class="line">gpg: 吊销证书已被存储为‘/Users/zebedy/.gnupg/openpgp-revocs.d/45275575D4E6F8A077851C9EB8A51B592369E537.rev’</span><br><span class="line">公钥和私钥已经生成并被签名。</span><br><span class="line"></span><br><span class="line">pub   ed25519 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">uid                      zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">sub   cv25519 2023-05-10 [E]</span><br></pre></td></tr></table></figure>
+
+<p>到这里，生成密钥的过程已经结束。</p>
+<h1 id="配置子密钥"><a href="#配置子密钥" class="headerlink" title="配置子密钥"></a>配置子密钥</h1><p>在配置子密钥之前，首先需要做一个事情：替换默认的 <code>pinentry</code><br><code>pinentry</code> 是用来合用乎交互输入密码的，因为默认的 <code>pinentry</code> 依赖 <code>GPG_TTY</code> 所以可以再终端中实现输入密码。但是如果我们在其他的地方，比如 VSCode 或者 JB 全家桶的时候，就会出现因为无法输入密码导致失败。<br>所以我们需要安装第三方的 <code>pinentry-mac</code>，并替换默认 <code>pinentry</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew install pinentry-mac</span><br><span class="line">echo &quot;pinentry-program $(which pinentry-mac)&quot; &gt;&gt; ~/.gnupg/gpg-agent.conf</span><br></pre></td></tr></table></figure>
+
+<p>然后重启 <code>gpg-agent</code> 即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo RELOADAGENT | gpg-connect-agent</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建用于-SSH-鉴权的子密钥"><a href="#创建用于-SSH-鉴权的子密钥" class="headerlink" title="创建用于 SSH 鉴权的子密钥"></a>创建用于 SSH 鉴权的子密钥</h2><h3 id="创建子密钥"><a href="#创建子密钥" class="headerlink" title="创建子密钥"></a>创建子密钥</h3><p>首先第一步，查看一下我们生成的主密钥公钥相关信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --list-keys --keyid-format=long</span></span><br><span class="line">[keyboxd]</span><br><span class="line">---------</span><br><span class="line">pub   ed25519/B8A51B592369E537 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">uid                   [ 绝对 ] zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">sub   cv25519/D2EA38C64D46463D 2023-05-10 [E]</span><br></pre></td></tr></table></figure>
+
+<p>第一行 <code>pub</code> 表示这个是公钥, <code>ed25519</code> 是上面创建密钥时选择的椭圆曲线方法, <code>/</code> 后面的 <code>B8A51B592369E537</code> 是公钥的16位短摘要, <code>2023-05-10</code> 是生成时间, <code>[SC]</code> 中 <code>S:signing</code> 表示可以用于签名 <code>C:certification</code> 表示可以用于认证。<br>第二行 <code>45275575D4E6F8A077851C9EB8A51B592369E537</code> 是密钥的40位长摘要。其中上面的短摘要就是长摘要的后16位<br>第三行 <code>uid</code> 是用户信息，<code>[ 绝对 ]</code> 表示该密钥的信任等级是最高级别: 绝对信任，后面分别是输入的名字，注释和电子邮件<br>第四行 <code>sub</code> 表示这个是子公钥，是创建主密钥的时候自动生成的一个子密钥，最后的<code>[E]</code> 中 <code>E:encryption</code> 表示可用于加密</p>
+<p>当然我们也可以通过 <code>--list-secret-keys</code> 查看私钥</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --list-secret-keys --keyid-format=long</span></span><br><span class="line">[keyboxd]</span><br><span class="line">---------</span><br><span class="line">sec   ed25519/B8A51B592369E537 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">uid                   [ 绝对 ] zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">ssb   cv25519/D2EA38C64D46463D 2023-05-10 [E]</span><br></pre></td></tr></table></figure>
+
+<p>内容和上面只有前面的 <code>pub</code> -&gt; <code>sec</code>(表示私钥), <code>sub</code> -&gt; <code>ssb</code>(表示子私钥) 不一样，其他的内容都一样。</p>
+<p>通过上面知道主密钥的摘要是 <code>B8A51B592369E537</code>(这里用长短摘要都可以。但是为了方便，后面就都用短摘要。也可以直接使用 <code>uid</code> 中的姓名)<br>接下俩就需要用这个主密钥生成一个子密钥。因为需要用到高级自定义，所以需要加上 <code>--expert</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --expert --edit-key B8A51B592369E537       <span class="comment"># 或者是 gpg --expert --edit-key zebedy</span></span></span><br><span class="line">gpg (GnuPG) 2.4.1; Copyright (C) 2023 g10 Code GmbH</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">私钥可用。</span><br><span class="line"></span><br><span class="line">sec  ed25519/B8A51B592369E537</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：SC</span><br><span class="line">     信任度：绝对        有效性：绝对</span><br><span class="line">ssb  cv25519/D2EA38C64D46463D</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：E</span><br><span class="line">[ 绝对 ] (1). zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">gpg&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到这里 <code>shell</code> 变成了 <code>gpg&gt;</code> 表示进入了与 <code>GPG</code> 的交互</p>
+<p>通过 <code>addkey</code> 添加一个新的子密钥，选择 <code>RSA（自定义用途）</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> addkey</span></span><br><span class="line">请选择您要使用的密钥类型：</span><br><span class="line">   (3) DSA（仅用于签名）</span><br><span class="line">   (4) RSA（仅用于签名）</span><br><span class="line">   (5) ElGamal（仅用于加密）</span><br><span class="line">   (6) RSA（仅用于加密）</span><br><span class="line">   (7) DSA（自定义用途）</span><br><span class="line">   (8) RSA（自定义用途）</span><br><span class="line">  (10) ECC（仅用于签名）</span><br><span class="line">  (11) ECC（自定义用途）</span><br><span class="line">  (12) ECC（仅用于加密）</span><br><span class="line">  (13) 现有密钥</span><br><span class="line"> （14）卡中现有密钥</span><br><span class="line">您的选择是？ 8</span><br></pre></td></tr></table></figure>
+
+<p>然后进入到了自定义选项中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RSA 密钥的可实现的功能： 签名（Sign） 加密（Encrypt） 身份验证（Authenticate）</span><br><span class="line">目前启用的功能： 签名（Sign） 加密（Encrypt）</span><br><span class="line"></span><br><span class="line">   (S) 签名功能开关</span><br><span class="line">   (E) 加密功能开关</span><br><span class="line">   (A) 身份验证功能开关</span><br><span class="line">   (Q) 已完成</span><br><span class="line"></span><br><span class="line">您的选择是？ S</span><br></pre></td></tr></table></figure>
+
+<p>这里可以看到这个子密钥目前启用的功能有 <code>签名（Sign）</code> 和 <code>加密（Encrypt）</code><br>但是 <code>SSH</code> 鉴权不需要这两个功能，所以我们输入<code>S</code> 回车后取消 <code>签名（Sign）</code> 的功能</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RSA 密钥的可实现的功能： 签名（Sign） 加密（Encrypt） 身份验证（Authenticate）</span><br><span class="line">目前启用的功能： 加密（Encrypt）</span><br><span class="line"></span><br><span class="line">   (S) 签名功能开关</span><br><span class="line">   (E) 加密功能开关</span><br><span class="line">   (A) 身份验证功能开关</span><br><span class="line">   (Q) 已完成</span><br><span class="line"></span><br><span class="line">您的选择是？ E</span><br></pre></td></tr></table></figure>
+
+<p>现在子密钥目前启用的功能就只有 <code>加密（Encrypt）</code> 了，再次输入 <code>E</code> 回车</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RSA 密钥的可实现的功能： 签名（Sign） 加密（Encrypt） 身份验证（Authenticate）</span><br><span class="line">目前启用的功能：</span><br><span class="line"></span><br><span class="line">   (S) 签名功能开关</span><br><span class="line">   (E) 加密功能开关</span><br><span class="line">   (A) 身份验证功能开关</span><br><span class="line">   (Q) 已完成</span><br><span class="line"></span><br><span class="line">您的选择是？ A</span><br></pre></td></tr></table></figure>
+
+<p>现在已启用功能就没有了任何内容，输入 <code>A</code> 回车后开启 <code>SSH</code> 鉴权需要的功能。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RSA 密钥的可实现的功能： 签名（Sign） 加密（Encrypt） 身份验证（Authenticate）</span><br><span class="line">目前启用的功能： 身份验证（Authenticate）</span><br><span class="line"></span><br><span class="line">   (S) 签名功能开关</span><br><span class="line">   (E) 加密功能开关</span><br><span class="line">   (A) 身份验证功能开关</span><br><span class="line">   (Q) 已完成</span><br><span class="line"></span><br><span class="line">您的选择是？ Q</span><br></pre></td></tr></table></figure>
+
+<p>然后输入 <code>Q</code> 结束自定义功能，进入 <code>RSA</code> 密钥选项。<br>因为添加子密钥的时候选择的是 <code>RSA</code> 密钥，所以这里需要指定密钥长度。长度越长，安全性越高。我这里就选择 <code>4096</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RSA 密钥的长度应在 1024 位与 4096 位之间。</span><br><span class="line">您想要使用的密钥长度？(3072) 4096</span><br></pre></td></tr></table></figure>
+
+<p>然后设置子密钥的有效期。因为也是个人长期使用，所以选择 <code>0 密钥永不过期</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">请设定这个密钥的有效期限。</span><br><span class="line">         0 = 密钥永不过期</span><br><span class="line">      &lt;n&gt;  = 密钥在 n 天后过期</span><br><span class="line">      &lt;n&gt;w = 密钥在 n 周后过期</span><br><span class="line">      &lt;n&gt;m = 密钥在 n 月后过期</span><br><span class="line">      &lt;n&gt;y = 密钥在 n 年后过期</span><br><span class="line">密钥的有效期限是？(0) 0</span><br></pre></td></tr></table></figure>
+
+<p>然后经过两次 输入 y 的确认后，会提示输入主密钥的密码。因为创建子密钥需要用到主密钥的私钥，所以需要用到主密钥的密码<br>输入完正确密码后，经过短暂时间就生成了一个 <code>RSA</code> 密钥</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">我们需要生成大量的随机字节。在质数生成期间做些其他操作（敲打键盘</span><br><span class="line">、移动鼠标、读写硬盘之类的）将会是一个不错的主意；这会让随机数</span><br><span class="line">发生器有更好的机会获得足够的熵。</span><br><span class="line"></span><br><span class="line">sec  ed25519/B8A51B592369E537</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：SC</span><br><span class="line">     信任度：绝对        有效性：绝对</span><br><span class="line">ssb  cv25519/D2EA38C64D46463D</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：E</span><br><span class="line">ssb  rsa4096/A6BD1D16B38E90A9</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：AR</span><br><span class="line">[ 绝对 ] (1). zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">gpg&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>和上面相比可以看到已经多了一个摘要为 <code>A6BD1D16B38E90A9</code> 的子密钥<br>还有最后一步，输入 <code>save</code> 保存就退出 <code>GPG</code> 的交互 <code>shell</code> 了</p>
+<p>至此，子密钥创建完成。</p>
+<p>回到查看密钥信息那里。我们再通过 <code>--list-keys</code> 查看当前密钥信息就可以看到这个子密钥了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --list-keys --keyid-format=long</span></span><br><span class="line">[keyboxd]</span><br><span class="line">---------</span><br><span class="line">pub   ed25519/B8A51B592369E537 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">uid                   [ 绝对 ] zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">sub   cv25519/D2EA38C64D46463D 2023-05-10 [E]</span><br><span class="line">sub   rsa4096/A6BD1D16B38E90A9 2023-05-10 [AR]</span><br></pre></td></tr></table></figure>
+
+<p>相比上面可以看到到了一个 <code>A6BD1D16B38E90A9</code> 的子密钥</p>
+<h3 id="配置-SSH"><a href="#配置-SSH" class="headerlink" title="配置 SSH"></a>配置 SSH</h3><h4 id="启用-GPG-Agent-的-SSH-支持"><a href="#启用-GPG-Agent-的-SSH-支持" class="headerlink" title="启用 GPG Agent 的 SSH 支持"></a>启用 GPG Agent 的 SSH 支持</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/.gnupg/gpg-agent.conf         # 文件可能不存在，如不存在则创建</span><br></pre></td></tr></table></figure>
+
+<p>在文件中单独一行添加 <code>enable-ssh-support</code></p>
+<h4 id="设置-GPG-Agent-替代-SSH-Agent"><a href="#设置-GPG-Agent-替代-SSH-Agent" class="headerlink" title="设置 GPG Agent 替代 SSH Agent"></a>设置 GPG Agent 替代 SSH Agent</h4><p>修改对应 shell 的配置文件 (我使用的是 <code>zsh</code>，自己根据使用的 <code>shell</code> 调整)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure>
+<p>添加以下内容到合适的地方</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GPG_TTY=$(tty)</span><br><span class="line">export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)</span><br><span class="line">gpgconf --launch gpg-agent</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加子密钥-keygrip"><a href="#添加子密钥-keygrip" class="headerlink" title="添加子密钥 keygrip"></a>添加子密钥 keygrip</h4><p>首先通过 <code>--with-keygrip</code> 获取子密钥的 <code>keygrip</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --list-keys --with-keygrip --keyid-format=long</span></span><br><span class="line">[keyboxd]</span><br><span class="line">---------</span><br><span class="line">pub   ed25519/B8A51B592369E537 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">      Keygrip = A3395689BC37EAF960298BC1696D92091222CE0F</span><br><span class="line">uid                   [ 绝对 ] zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">sub   cv25519/D2EA38C64D46463D 2023-05-10 [E]</span><br><span class="line">      Keygrip = 7418F1361C6953577306E4D7B32253EC5271B100</span><br><span class="line">sub   rsa4096/A6BD1D16B38E90A9 2023-05-10 [AR]</span><br><span class="line">      Keygrip = 1434286BFA6084E76B6B6E1A6E2FD84340FEC182</span><br></pre></td></tr></table></figure>
+
+<p>找到上一步创建的子密钥 <code>A6BD1D16B38E90A9</code> 他的 <code>Keygrip = 1434286BFA6084E76B6B6E1A6E2FD84340FEC182</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/.gnupg/sshcontrol</span><br></pre></td></tr></table></figure>
+
+<p>将这个 <code>1434286BFA6084E76B6B6E1A6E2FD84340FEC182</code> 添加到单独一行</p>
+<p>然后重启终端<br>检查 <code>SSH Key</code> 是否存在</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-add -l</span></span><br><span class="line">4096 SHA256:3R/hEI7YZwM8NPSnDI9lXwDCjuaSKvQf1KtvsUrC9S8 (none) (RSA)</span><br></pre></td></tr></table></figure>
+
+<p>看到类似内容就表示添加成功</p>
+<p>然后导出 SSH 公钥</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --export-ssh-key A6BD1D16B38E90A9         <span class="comment"># 或者是 gpg --export-ssh-key zebedy</span></span></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDfQkunrCVxziMf+54WiSPBUtjc/oOLfjTfs9AR44pQzmTI/OmzLevaVxOVrkVOqB2wmN2pVAmR0zB/DPdqBJTwZv/qBnxdmPmA9aWXcINy+wITnXOaSi+ipPryj5g2fF9qu/tmfsQKDkyae/kA67+Ji7p8rKveQh8rRyuDazspuUAn1AumPA/NrajQYcXUMMk9pogZkTbb7lX2ruFnaJCx9/7Jf88usxf6ny7KePsaGClR4xtLCJXpWmYSKrxKbZPITLDCnq7zC0V0tbexpLDlV+bPFRrCq/OzBjUthpXzFtBuD3ZOLn/LaoilOZMumfwZU9FuarMjwN7wkt7jLofaK05zo8YypZS+a68GzHgwTNqwq+eS/WhKHyw2RyXlrmYjT5pRhmIDWEKxVUTjEJaQCMBDDaDNmXnKTUQ7FsFjhN/VKv4EecJT1OOIq/PdUzhWzy6rpjWaWLvLVdpWGbehKVYiMVVPy6OBBSPUxhoxyJRBCfkoIoa4DklZ4aZF28DYaamDuAliQnqJbBQGrO8xjY4jFJl0ZRH++QDlIPMRg/kWyhqGDUrlnV+avhNnIuZB/T4Rze1NdZxYcvuLwzy/C7/oGhXa5O9Hf1kawihHJPCOvpiPcFuqlkcn3C+uBTXmQJkYebmVr+XmjBUgpxXyGvDYAUgcM28aj5Qc4bSeQw== openpgp:0xB38E90A9</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以把这个它添加到任何需要使用 <code>SSH</code> 的地方，比如 <code>GitHub</code> 或者自己服务器上的 <code>~/.ssh/authorized_keys</code> 中</p>
+<h2 id="创建用于-代码签名-的子密钥"><a href="#创建用于-代码签名-的子密钥" class="headerlink" title="创建用于 代码签名 的子密钥"></a>创建用于 代码签名 的子密钥</h2><p>注意: 如果在<a href="#%E7%94%9F%E6%88%90%E4%B8%BB%E5%AF%86%E9%92%A5">生成主密钥</a>的时候输入的邮箱不是 <code>GitHub</code> 或者 <code>GitLab</code> 的邮箱，那么需要在编辑密钥的交互中通过 <code>adduid</code> 给主密钥添加对应的邮箱。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --edit-key B8A51B592369E537           <span class="comment"># 编辑主密钥</span></span></span><br><span class="line">gpg (GnuPG) 2.4.1; Copyright (C) 2023 g10 Code GmbH</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">私钥可用。</span><br><span class="line"></span><br><span class="line">sec  ed25519/B8A51B592369E537</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：SC</span><br><span class="line">     信任度：绝对        有效性：绝对</span><br><span class="line">ssb  cv25519/D2EA38C64D46463D</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：E</span><br><span class="line">ssb  rsa4096/A6BD1D16B38E90A9</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：AR</span><br><span class="line">ssb  ed25519/F9A2BB2BF7293EBF</span><br><span class="line">     创建于：2023-05-12  有效至：永不       可用于：S</span><br><span class="line">[ 绝对 ] (1). zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> adduid                       <span class="comment"># 添加 uid</span></span></span><br><span class="line">真实姓名： zebedy                   # GitHub/GitLab 用户名（也可以不和用户名一致）</span><br><span class="line">电子邮件地址： github@gmail.com      # GitHub/GitLab 邮箱</span><br><span class="line">注释： github                       # 可选</span><br><span class="line">您选定了此用户标识：</span><br><span class="line">    “zebedy (github) &lt;github@gmail.com&gt;”</span><br><span class="line"></span><br><span class="line">更改姓名（N）、注释（C）、电子邮件地址（E）或确定（O）/退出（Q）？ O</span><br><span class="line"></span><br><span class="line">sec  ed25519/B8A51B592369E537</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：SC</span><br><span class="line">     信任度：绝对        有效性：绝对</span><br><span class="line">ssb  cv25519/D2EA38C64D46463D</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：E</span><br><span class="line">ssb  rsa4096/A6BD1D16B38E90A9</span><br><span class="line">     创建于：2023-05-10  有效至：永不       可用于：AR</span><br><span class="line">ssb  ed25519/F9A2BB2BF7293EBF</span><br><span class="line">     创建于：2023-05-12  有效至：永不       可用于：S</span><br><span class="line">[ 绝对 ] (1)  zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">[ 未知 ] (2). zebedy (github) &lt;github@gmail.com&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">gpg&gt;</span><span class="bash"> save                     <span class="comment"># save 保存退出</span></span></span><br></pre></td></tr></table></figure>
+
+<p>然后查看密钥信息就可以看到已经包含新的 <code>uid</code> 了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --list-keys --keyid-format=long</span></span><br><span class="line">[keyboxd]</span><br><span class="line">---------</span><br><span class="line">pub   ed25519/B8A51B592369E537 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">uid                   [ 绝对 ] zebedy (github) &lt;github@gmail.com&gt;</span><br><span class="line">uid                   [ 绝对 ] zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">sub   cv25519/D2EA38C64D46463D 2023-05-10 [E]</span><br><span class="line">sub   rsa4096/A6BD1D16B38E90A9 2023-05-10 [AR]</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建子密钥-1"><a href="#创建子密钥-1" class="headerlink" title="创建子密钥"></a>创建子密钥</h3><p>依据上面我们创建的主密钥，无须高级自定义(不必使用 <code>--expert</code> 参数)创建一个子密钥<br>这里密钥类型可以选择 <code>ECC</code> 也可以选择 <code>RSA</code>，但是注意，不管是 <code>ECC</code> 还是 <code>RSA</code>，都需要选择包含 <code>仅用于签名</code> 的选项<br>这里我就用 <code>ECC</code> 举例，具体过程就不再赘述，和上面<a href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E5%AF%86%E9%92%A5">创建子密钥</a>的过程基本一致，只是没有了自定义密钥功能，过程更简单了。<br>创建完成后同样记得使用 <code>save</code> 保存后自动退出 <code>GPG</code> 的交互环境，然后查询一下当前的密钥。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --list-keys --keyid-format=long</span></span><br><span class="line">[keyboxd]</span><br><span class="line">---------</span><br><span class="line">pub   ed25519/B8A51B592369E537 2023-05-10 [SC]</span><br><span class="line">      45275575D4E6F8A077851C9EB8A51B592369E537</span><br><span class="line">uid                   [ 绝对 ] zebedy (github) &lt;github@gmail.com&gt;</span><br><span class="line">uid                   [ 绝对 ] zebedy (主密钥) &lt;example@gmail.com&gt;</span><br><span class="line">sub   cv25519/D2EA38C64D46463D 2023-05-10 [E]</span><br><span class="line">sub   rsa4096/A6BD1D16B38E90A9 2023-05-10 [AR]</span><br><span class="line">sub   ed25519/F9A2BB2BF7293EBF 2023-05-12 [S]</span><br></pre></td></tr></table></figure>
+
+<p>就看到了新创建的密钥 <code>F9A2BB2BF7293EBF</code> 用途只有 <code>[S]</code>，只用于签名。</p>
+<h3 id="查询子密钥公钥"><a href="#查询子密钥公钥" class="headerlink" title="查询子密钥公钥"></a>查询子密钥公钥</h3><p>通过 <code>--export</code> 查询子密钥公钥，但是默认是二进制的格式，所以还需要 <code>--armor</code> 显示为文本格式才能使用。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --armor --<span class="built_in">export</span> F9A2BB2BF7293EBF!              <span class="comment"># 注意这里在密钥摘要末尾有一个英文的感叹号!</span></span></span><br><span class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</span><br><span class="line"></span><br><span class="line">mDMEZFtHahYJKwYBBAHaRw8BAQdAbeuOrh1oHTtDQ8kycALUpsOxLaYd/JmIXNjO</span><br><span class="line">wSJbEqm0JnplYmVkeSAo5Li75a+G6ZKlKSA8ZXhhbXBsZUBnbWFpbC5jb20+iJME</span><br><span class="line">ExYKADsWIQRFJ1V11Ob4oHeFHJ64pRtZI2nlNwUCZFtHagIbAwULCQgHAgIiAgYV</span><br><span class="line">CgkICwIEFgIDAQIeBwIXgAAKCRC4pRtZI2nlN0LWAQDIOo2V1ev5MucmoGb9fsp8</span><br><span class="line">q20Pcc07GBKDi36V7yiRswD/WA4WwnJnW9OE2u9BVnbxKQv6pW9le/e9NzClNN3q</span><br><span class="line">hwi4MwRkXadVFgkrBgEEAdpHDwEBB0DPev1UYl6PX2CdPzEIG+7zca0eUNhQsVGo</span><br><span class="line">owswb6IfuIjvBBgWCgAgFiEERSdVddTm+KB3hRyeuKUbWSNp5TcFAmRdp1UCGwIA</span><br><span class="line">gQkQuKUbWSNp5Td2IAQZFgoAHRYhBEhFiAR0mLtt8h6umvmiuyv3KT6/BQJkXadV</span><br><span class="line">AAoJEPmiuyv3KT6/lSQA/Rt0TJbGMCZZ9tLvzIm+fQPTG4t4T20cqhRjwJc2Zvfd</span><br><span class="line">AQDABHBITeK01kVb+cqcxNIIBaX7ZE8KR/K/k/31kQuYBaLUAPwJkBI78qeiYNM+</span><br><span class="line">Lu0EGNuaapTZ2dzgBo6fldhoZVtpEAEA0Gd1OTPzEuKi7h0gERU2QfFfePaZbyZK</span><br><span class="line">2RlF1XBR6gM=</span><br><span class="line">=8/a2</span><br><span class="line">-----END PGP PUBLIC KEY BLOCK-----</span><br></pre></td></tr></table></figure>
+
+<p>为什么要在摘要末尾添加一个 <code>!</code> 号呢？<br>因为如果没有这个感叹号则会导出这个子密钥所属的主密钥下的所有公钥。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gpg --armor --<span class="built_in">export</span> F9A2BB2BF7293EBF               <span class="comment"># 这里没有感叹号，发现内容相比上面长了很多</span></span></span><br><span class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</span><br><span class="line"></span><br><span class="line">mDMEZFtHahYJKwYBBAHaRw8BAQdAbeuOrh1oHTtDQ8kycALUpsOxLaYd/JmIXNjO</span><br><span class="line">wSJbEqm0JnplYmVkeSAo5Li75a+G6ZKlKSA8ZXhhbXBsZUBnbWFpbC5jb20+iJME</span><br><span class="line">ExYKADsWIQRFJ1V11Ob4oHeFHJ64pRtZI2nlNwUCZFtHagIbAwULCQgHAgIiAgYV</span><br><span class="line">CgkICwIEFgIDAQIeBwIXgAAKCRC4pRtZI2nlN0LWAQDIOo2V1ev5MucmoGb9fsp8</span><br><span class="line">q20Pcc07GBKDi36V7yiRswD/WA4WwnJnW9OE2u9BVnbxKQv6pW9le/e9NzClNN3q</span><br><span class="line">hwi4OARkW0dqEgorBgEEAZdVAQUBAQdAHTe/jcQGU3sTIFXGRtuHmWWcSuwD2Ihq</span><br><span class="line">Nw5EApNJT1QDAQgHiHgEGBYKACAWIQRFJ1V11Ob4oHeFHJ64pRtZI2nlNwUCZFtH</span><br><span class="line">agIbDAAKCRC4pRtZI2nlN104AQDNtW2d4kP6VwLl+hi3zAuvtilkxo/gA+7wPiBg</span><br><span class="line">neGJKgEA5QPf6bwTPdWe4nbOSCl0DTSkait2NvJV8kPVLa+rPwK5Ag0EZFtXWQEQ</span><br><span class="line">AN9CS6esJXHOIx/7nhaJI8FS2Nz+g4t+NN+z0BHjilDOZMj86bMt69pXE5WuRU6o</span><br><span class="line">HbCY3alUCZHTMH8M92oElPBm/+oGfF2Y+YD1pZdwg3L7AhOdc5pKL6Kk+vKPmDZ8</span><br><span class="line">X2q7+2Z+xAoOTJp7+QDrv4mLunysq95CHytHK4NrOym5QCfUC6Y8D82tqNBhxdQw</span><br><span class="line">yT2miBmRNtvuVfau4WdokLH3/sl/zy6zF/qfLsp4+xoYKVHjG0sIlelaZhIqvEpt</span><br><span class="line">k8hMsMKervMLRXS1t7GksOVX5s8VGsKr87MGNS2GlfMW0G4Pdk4uf8tqiKU5ky6Z</span><br><span class="line">/BlT0W5qsyPA3vCS3uMuh9orTnOjxjKllL5rrwbMeDBM2rCr55L9aEofLDZHJeWu</span><br><span class="line">ZiNPmlGGYgNYQrFVROMQlpAIwEMNoM2ZecpNRDsWwWOE39Uq/gR5wlPU44ir891T</span><br><span class="line">OFbPLqumNZpYu8tV2lYZt6EpViIxVU/Lo4EFI9TGGjHIlEEJ+SgihrgOSVnhpkXb</span><br><span class="line">wNhpqYO4CWJCeolsFAas7zGNjiMUmXRlEf75AOUg8xGD+RbKGoYNSuWdX5q+E2ci</span><br><span class="line">5kH9PhHN7U11nFhy+4vDPL8Lv+gaFdrk70d/WRrCKEck8I6+mI9wW6qWRyfcL64F</span><br><span class="line">NeZAmRh5uZWv5eaMFSCnFfIa8NgBSBwzbxqPlBzhtJ5DABEBAAGIbwQYFgoAIRYh</span><br><span class="line">BEUnVXXU5vigd4UcnrilG1kjaeU3BQJkW1dZAxsgBAAA4wsA/1Ji946mnKlMCGvq</span><br><span class="line">+OhC0v16b2/teXfE81Mrqu55mjIpAPkBYSodm66PHU3YwJemfWUbIzkMIAfra7AY</span><br><span class="line">5HBt0MRmArgzBGRdp1UWCSsGAQQB2kcPAQEHQM96/VRiXo9fYJ0/MQgb7vNxrR5Q</span><br><span class="line">2FCxUaijCzBvoh+4iO8EGBYKACAWIQRFJ1V11Ob4oHeFHJ64pRtZI2nlNwUCZF2n</span><br><span class="line">VQIbAgCBCRC4pRtZI2nlN3YgBBkWCgAdFiEESEWIBHSYu23yHq6a+aK7K/cpPr8F</span><br><span class="line">AmRdp1UACgkQ+aK7K/cpPr+VJAD9G3RMlsYwJln20u/Mib59A9Mbi3hPbRyqFGPA</span><br><span class="line">lzZm990BAMAEcEhN4rTWRVv5ypzE0ggFpftkTwpH8r+T/fWRC5gFotQA/AmQEjvy</span><br><span class="line">p6Jg0z4u7QQY25pqlNnZ3OAGjp+V2GhlW2kQAQDQZ3U5M/MS4qLuHSARFTZB8V94</span><br><span class="line">9plvJkrZGUXVcFHqAw==</span><br><span class="line">=TgM3</span><br><span class="line">-----END PGP PUBLIC KEY BLOCK-----</span><br></pre></td></tr></table></figure>
+
+<p>因为我们只需要这个子密钥，所以使用 <code>!</code> 只包含该子密钥的公钥就行。<br>然后将该公钥添加到 <code>GitHub</code> 或者 <code>GitLab</code> 中。</p>
+<h3 id="配置-Git"><a href="#配置-Git" class="headerlink" title="配置 Git"></a>配置 Git</h3><p>给 Git 全局配置签名 Key</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.signingkey F9A2BB2BF7293EBF!</span><br></pre></td></tr></table></figure>
+<p>如果不需要自动使用 GPG 签名代码，可以每次在 <code>commit</code> 的时候使用 <code>-S</code> 参数（大写S）进行签名<br>如果想提交的时候自动签名，可以进行配置。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global commit.gpgsign true</span><br></pre></td></tr></table></figure>
+
+<p>然后再次提交代码后就可以查看签名信息了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --show-signature</span><br></pre></td></tr></table></figure>
+
+<p>同时 <code>push</code> 到 <code>GitHub</code> 上后也可以看到提交有一个 <code>verified</code> 的标记。<br>至此，创建密钥相关的部分就先告一段落。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/6cf2e209.html" rel="prev" title="Python 给内置类型增加额外方法">
+                  <i class="fa fa-chevron-left"></i> Python 给内置类型增加额外方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/6f160740.html" rel="next" title="有意思的数学函数 Python 代码">
+                  有意思的数学函数 Python 代码 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zebedy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <span id="runtime_span"></span>
+  <script>
+    var now = new Date();
+    function show_runtime() {
+      var born = new Date("Sat Feb 05 2022 08:00:00 GMT+0800 (中国标准时间)");
+      now.setTime(now.getTime() + 250);
+      days = Math.floor((now - born) / 1000 / 60 / 60 / 24);
+      hours = Math.floor((now - born) / 1000 / 60 / 60 - (24 * days));
+      if (String(hours).length == 1) { hours = "0" + hours; }
+      minutes = Math.floor((now - born) / 1000 / 60 - (24 * 60 * days) - (60 * hours));
+      if (String(minutes).length == 1) { minutes = "0" + minutes; }
+      seconds = Math.round((now - born) / 1000 - (24 * 60 * 60 * days) - (60 * 60 * hours) - (60 * minutes));
+      if (String(seconds).length == 1) { seconds = "0" + seconds; }
+      document.getElementById("runtime_span").innerHTML = days + " 天 " + hours + " 小时 " + minutes + " 分 " + seconds + " 秒";
+    }
+    setInterval("show_runtime()", 250);
+  </script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js","integrity":"sha256-QmSAc2kIaUjleIJ46X7qPW2zrpCbXlMz3YIGgWpQ1Jo="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deplives","repo":"deplives.github.io","client_id":"6e175729a62f722a91f1","client_secret":"24efeb76e31ca15ddfbf320d5ce9c3f77009b3e0","admin_user":"deplives","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"a7c3373015e00d2976e911da9df87f30"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
