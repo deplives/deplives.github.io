@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.zebedy.com/post/cb9ee24d.html</loc>
+    
+    <lastmod>2024-03-24</lastmod>
+    
+    <title>macOS GPG 使用指南 | Undefined</title>
+    <date>1683614083000</date>
+    <desc>这篇指南面向的是对 GPG 有了一定了解的的朋友，如果你还不知道 GPG 是什么，那么可能需要先补充一下这部分的基础知识，再来食用比较合适。 如果你已经大概了解 GPG 的一些内容，知道它能用来干什么而且你真的需要用到。那么这篇指南或许对你有一点的帮助。 这篇指南主要针对于 macOS 系统下的 GPG 使用方法，如果你使用的是 Windows 或者 Linux，其中有些内容可能并不适用。 文中使</desc>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <url>
     <loc>https://blog.zebedy.com/post/6cf2e209.html</loc>
     
     <lastmod>2024-02-16</lastmod>
@@ -9,17 +20,6 @@
     <title>Python 给内置类型增加额外方法 | Undefined</title>
     <date>1676282266000</date>
     <desc>事情一开始是这个样子的。记得某一天，在写代码的时候。我需要将一个字典深拷贝，然后我熟练的敲下了下面的代码 from copy import deepcopycopy_dict = deepcopy(origin_dict) 但是这样的代码我总觉得不优雅。因为 dict 自带一个 copy 方法。但是可惜的是他是个浅拷贝。这就难受了呀，所以我有一个想法：既然他不自带 deepcopy，那咱们给它添加</desc>
-    <changefreq>weekly</changefreq>
-  </url>
-  
-  <url>
-    <loc>https://blog.zebedy.com/post/cb9ee24d.html</loc>
-    
-    <lastmod>2023-07-11</lastmod>
-    
-    <title>macOS GPG 使用指南 | Undefined</title>
-    <date>1683614083000</date>
-    <desc>这篇指南面向的是对 GPG 有了一定基础的朋友，如果你还不知道 GPG 是什么，那么可能需要先补充一下这部分的基础知识，再来食用该指南。如果你已经大概了解 GPG 的一些内容，知道它能用来干什么而且你真的需要用到。那么这篇指南或许对你有一点的帮助。这篇指南主要针对于 macOS 系统下的 GPG 使用方法，如果你使用的是 Windows 或者 Linux，其中有些内容可能并不适用。文中使用的 GP</desc>
     <changefreq>weekly</changefreq>
   </url>
   
